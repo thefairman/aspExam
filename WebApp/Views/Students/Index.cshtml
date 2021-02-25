@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "Groups";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{await Html.RenderPartialAsync("_DeleteModal");}
+
+<div class="modal fade" id="myEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Редактирование элемента</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="form-control-label">Name:</label>
+                        <input type="text" class="form-control" id="recipient-name" name="firstName">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="form-control-label">Name:</label>
+                        <input type="text" class="form-control" id="recipient-lastName" name="lastName">
+                    </div>
+                    <div class="form-group">
+                        <label for="faculty-select" class="form-control-label">Faculty:</label>
+                        <select id="selectFacultyInForm" class="form-select" aria-label="Default select example">
+                            <option>-- Select faculty --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="faculty-select" class="form-control-label">Group:</label>
+                        <select id="selectGroupInForm" class="form-select" aria-label="Default select example">
+                            <option>-- Select group --</option>
+                        </select>
+                    </div>
+                    <input type="hidden" id="studentId" name="id" value="" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="editBtn">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h1>STUDENTS</h1>
+
+<button class="btn btn-info" data-toggle="modal" data-target="#myEditModal">Add Student</button>
+<br />
+
+<table id="tt" class="easyui-datagrid" style="width:1024px;height:250px"
+       toolbar="#tb"
+       title="Students List" iconCls="icon-save"
+       rownumbers="true" pagination="true"
+       data-options="singleSelect:true,collapsible:true,url:'api/Student',method:'get'">
+    <thead>
+        <tr>
+            <th field="id" width="50">ID</th>
+            <th field="firstName" width="300">First Name</th>
+            <th field="lastName" width="300">Last Name</th>
+            <th field="faculty" width="300" formatter="facultyFormatter">Faculty</th>
+            <th field="group" width="300" formatter="groupFormatter">Group</th>
+            <th field="detail" width="240" formatter="formatDetail">Actions</th>
+        </tr>
+    </thead>
+</table>
+
+<!--секция скриптов-->
+@section Scripts {
+    <script src="~/js/students.js"></script>
+    <script src="~/js/sharedEdit.js"></script>
+}
